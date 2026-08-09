@@ -1,0 +1,19 @@
+{
+	email {$ACME_EMAIL}
+}
+
+# One host serves the UI at the root and the API under /api. Same origin, so
+# the browser makes no cross-origin calls: set the UI "API URL" to /api.
+{$DOMAIN} {
+	tls {
+		dns ionos {env.IONOS_API_KEY}
+	}
+
+	handle_path /api/* {
+		reverse_proxy sb-ctrl:8765
+	}
+
+	handle {
+		reverse_proxy sb-ctrl-ui:80
+	}
+}

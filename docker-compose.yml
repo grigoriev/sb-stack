@@ -1,0 +1,47 @@
+services:
+  # REST API + transfer agent. Reached only through the caddy proxy.
+  sb-ctrl:
+    build:
+      context: https://github.com/grigoriev/sb-ctrl.git#main
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./config/config.toml:/config/config.toml:ro
+      - ./secrets/ssh:/root/.ssh:ro
+      # Staging and the Plex library roots. Must be one filesystem (atomic move).
+      - ${MEDIA_ROOT}:/data
+      # Resolve the perms owner/group names (e.g. "plex") to host ids.
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    networks: [internal]
+
+  # Static single-page UI. Reached only through the caddy proxy.
+  sb-ctrl-ui:
+    build:
+      context: https://github.com/grigoriev/sb-ctrl-ui.git#main
+    restart: unless-stopped
+    networks: [internal]
+
+  # TLS termination + reverse proxy. Custom build adds the IONOS DNS plugin
+  # so certificates issue over DNS-01 (the host is VPN-only, HTTP-01 fails).
+  caddy:
+    build:
+      context: ./caddy
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [internal]
+    depends_on: [sb-ctrl, sb-ctrl-ui]
+
+networks:
+  internal:
+
+volumes:
+  caddy_data:
+  caddy_config:

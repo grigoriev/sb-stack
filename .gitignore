@@ -1,0 +1,7 @@
+.idea/
+
+# Secrets and local config (mounted into the containers at runtime).
+.env
+config/config.toml
+secrets/ssh/*
+!secrets/ssh/.gitkeep
