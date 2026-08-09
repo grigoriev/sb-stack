@@ -65,18 +65,22 @@ browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
 
 ## Updating
 
-The service images build from the tips of the sb-ctrl and sb-ctrl-ui `main`
-branches. Rebuild to pick up new commits:
+`sb-ctrl` and `sb-ctrl-ui` run prebuilt images from GHCR, published by each repo
+on release. Pull the newest and recreate:
 
 ```sh
-docker compose build --pull
+docker compose pull
 docker compose up -d
 ```
+
+The `caddy` service builds locally (it bundles the IONOS DNS plugin), so the
+first start needs `--build`.
 
 ## Notes
 
 - The `sb-ctrl` container runs as root and mounts the host `/etc/passwd` and
   `/etc/group` read-only, so the perms owner and group names (for example
   `plex`) resolve to the host ids.
-- Compose builds `sb-ctrl` and `sb-ctrl-ui` from their git repos. The Dockerfiles
-  must be merged to each `main` first.
+- The `sb-ctrl` and `sb-ctrl-ui` images are published to
+  `ghcr.io/grigoriev/*` only when a GitHub Release is created in those repos.
+  Cut a release there before the first deploy.

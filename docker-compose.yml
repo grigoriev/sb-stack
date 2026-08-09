@@ -1,8 +1,8 @@
 services:
   # REST API + transfer agent. Reached only through the caddy proxy.
+  # Image published to GHCR by the sb-ctrl repo on each release.
   sb-ctrl:
-    build:
-      context: https://github.com/grigoriev/sb-ctrl.git#main
+    image: ghcr.io/grigoriev/sb-ctrl:latest
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -16,9 +16,9 @@ services:
     networks: [internal]
 
   # Static single-page UI. Reached only through the caddy proxy.
+  # Image published to GHCR by the sb-ctrl-ui repo on each release.
   sb-ctrl-ui:
-    build:
-      context: https://github.com/grigoriev/sb-ctrl-ui.git#main
+    image: ghcr.io/grigoriev/sb-ctrl-ui:latest
     restart: unless-stopped
     networks: [internal]
 
