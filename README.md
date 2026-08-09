@@ -65,8 +65,9 @@ browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
 
 ## Updating
 
-`sb-ctrl` and `sb-ctrl-ui` run prebuilt images from GHCR, published by each repo
-on release. Pull the newest and recreate:
+`sb-ctrl` and `sb-ctrl-ui` run prebuilt images from GHCR, pinned to a version
+tag. Each repo publishes a new tag on release, and Renovate opens a PR here to
+bump the tag. After merging, pull and recreate:
 
 ```sh
 docker compose pull
