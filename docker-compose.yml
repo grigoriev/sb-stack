@@ -2,7 +2,7 @@ services:
   # REST API + transfer agent. Reached only through the caddy proxy.
   # Image published to GHCR by the sb-ctrl repo on each release.
   sb-ctrl:
-    image: ghcr.io/grigoriev/sb-ctrl:0.3.3@sha256:dd16878c7110178f5df61a09ac44a01835d31410307df5486238732c233b5c05
+    image: ghcr.io/grigoriev/sb-ctrl:0.3.4@sha256:0a5193d51f6a708b5cbbea129e7bc29c2be5e320fd39e4484cf05b7acd275c5b
     restart: unless-stopped
     env_file: .env
     volumes:
