@@ -2,7 +2,7 @@ services:
   # REST API + transfer agent. Reached only through the caddy proxy.
   # Image published to GHCR by the sb-ctrl repo on each release.
   sb-ctrl:
-    image: ghcr.io/grigoriev/sb-ctrl:0.3.4@sha256:0a5193d51f6a708b5cbbea129e7bc29c2be5e320fd39e4484cf05b7acd275c5b
+    image: ghcr.io/grigoriev/sb-ctrl:0.4.0@sha256:1e894d0b9c09888e71aa267b8ae7dff5e83c0b0eaf9a24c461f8099351e1b7b1
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -18,7 +18,7 @@ services:
   # Static single-page UI. Reached only through the caddy proxy.
   # Image published to GHCR by the sb-ctrl-ui repo on each release.
   sb-ctrl-ui:
-    image: ghcr.io/grigoriev/sb-ctrl-ui:0.3.0@sha256:a7f8d2eaa9db52ce74568382e461112f073bbef9508dea9ed920e58ead00f314
+    image: ghcr.io/grigoriev/sb-ctrl-ui:0.4.0@sha256:2469e889205e74192a40e9e010a0f4ea323ce795e241f81aa687406373a86018
     restart: unless-stopped
     networks: [internal]
 
