@@ -18,7 +18,7 @@ services:
   # Static single-page UI. Reached only through the caddy proxy.
   # Image published to GHCR by the sb-ctrl-ui repo on each release.
   sb-ctrl-ui:
-    image: ghcr.io/grigoriev/sb-ctrl-ui:0.4.0@sha256:2469e889205e74192a40e9e010a0f4ea323ce795e241f81aa687406373a86018
+    image: ghcr.io/grigoriev/sb-ctrl-ui:0.4.1@sha256:a90ab57691eb0ae24f067861a286506dadb4d2d8ccb74765bf22ba59e233c2e5
     restart: unless-stopped
     networks: [internal]
 
