@@ -7,6 +7,14 @@
   "platformAutomerge": false,
   "pinDigests": true,
   "packageRules": [
-    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": false }
+    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": false },
+    {
+      "description": "Own images: plain tags, so the UGOS Docker app shows them",
+      "matchPackageNames": [
+        "ghcr.io/grigoriev/sb-ctrl",
+        "ghcr.io/grigoriev/sb-ctrl-ui"
+      ],
+      "pinDigests": false
+    }
   ]
 }
