@@ -52,7 +52,7 @@ browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
 
    ```sh
    cp ~/.ssh/id_ed25519 secrets/ssh/
-   ssh-keyscan sb.g7v.io > secrets/ssh/known_hosts
+   ssh-keyscan seedbox.example.org > secrets/ssh/known_hosts
    chmod 600 secrets/ssh/id_ed25519
    ```
 
