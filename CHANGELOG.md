@@ -19,6 +19,10 @@ This repository has no releases. `main` is the deployed state.
 
 - CHANGELOG.md, and Verify, Contributing and Disclaimer sections in the README.
 
+### Changed
+
+- Use a neutral example host in the README `ssh-keyscan` step.
+
 ### Fixed
 
 - Run CI once per commit on a Renovate branch: drop `renovate/**` from the push trigger.
