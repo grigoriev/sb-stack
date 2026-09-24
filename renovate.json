@@ -1,13 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
-  "dependencyDashboard": true,
-  "automerge": true,
-  "automergeType": "pr",
-  "platformAutomerge": false,
-  "pinDigests": true,
+  "extends": [
+    "github>grigoriev/renovate-config"
+  ],
   "packageRules": [
-    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": false },
     {
       "description": "Own images: plain tags, so the UGOS Docker app shows them",
       "matchPackageNames": [
