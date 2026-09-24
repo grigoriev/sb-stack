@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/grigoriev/sb-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/grigoriev/sb-stack/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/grigoriev/sb-stack/badge)](https://scorecard.dev/viewer/?uri=github.com/grigoriev/sb-stack)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14807/badge)](https://www.bestpractices.dev/projects/14807)
 [![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](docker-compose.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
