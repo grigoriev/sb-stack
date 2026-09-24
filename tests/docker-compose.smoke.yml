@@ -1,0 +1,18 @@
+# Test-only override for tests/smoke.sh. Never use it for a deployment.
+#
+# It swaps the real env file, config and Caddyfile for throwaway copies in
+# $SMOKE_DIR, and publishes caddy on a local port instead of 443.
+services:
+  sb-ctrl:
+    env_file: !override
+      - ${SMOKE_DIR:?set by tests/smoke.sh}/.env
+    volumes:
+      - ${SMOKE_DIR:?set by tests/smoke.sh}/config.toml:/config/config.toml:ro
+
+  caddy:
+    env_file: !override
+      - ${SMOKE_DIR:?set by tests/smoke.sh}/.env
+    ports: !override
+      - "127.0.0.1:${SMOKE_PORT:-8443}:443"
+    volumes:
+      - ${SMOKE_DIR:?set by tests/smoke.sh}/Caddyfile:/etc/caddy/Caddyfile:ro

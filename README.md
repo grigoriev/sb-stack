@@ -97,6 +97,28 @@ SPDX SBOM attestation from their next release on. Check one before a deploy:
 gh attestation verify oci://ghcr.io/grigoriev/sb-ctrl:<tag> --owner grigoriev
 ```
 
+## Tests
+
+`tests/smoke.sh` starts the real stack with dummy config and checks that it serves.
+CI runs it in the `smoke` job on every pull request.
+
+```sh
+tests/smoke.sh
+```
+
+It needs Docker with Compose 2.24 or later, and curl. The script does this:
+
+1. Writes a throwaway `.env` and `config.toml` to a temp dir. No seedbox and no real secrets.
+2. Builds caddy and starts the stack as project `sb-stack-smoke`, on `https://localhost:8443`.
+3. Replaces the IONOS DNS-01 block of the Caddyfile with Caddy's internal CA. No ACME.
+4. Checks the UI index page, `/api/health`, and that `/api` rejects a missing or wrong token.
+5. Validates the deployed Caddyfile, unchanged, with the built caddy image.
+6. Removes the containers and volumes, and prints the logs on failure.
+
+The separate project name keeps a deployment in the same checkout untouched. Set
+`SMOKE_PORT` if port 8443 is taken. The sb-ctrl images are amd64 only. On an ARM
+machine, run `DOCKER_DEFAULT_PLATFORM=linux/amd64 tests/smoke.sh`.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).

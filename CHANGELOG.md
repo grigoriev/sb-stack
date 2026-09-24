@@ -17,6 +17,7 @@ This repository has no releases. `main` is the deployed state.
 
 ### Added
 
+- Smoke test `tests/smoke.sh` and a `smoke` CI job: start the stack with dummy config, check the UI, the API and the token check.
 - CHANGELOG.md, and Verify, Contributing and Disclaimer sections in the README.
 
 ### Changed
