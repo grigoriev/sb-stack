@@ -23,6 +23,9 @@ This repository has no releases. `main` is the deployed state.
 
 ### Changed
 
+- Align the repository with the shared baseline: the `lint` job runs ShellCheck on
+  `tests/smoke.sh`, a new push to a pull request cancels its older CI run, every job has
+  a time limit, and SECURITY.md, CONTRIBUTING.md and .editorconfig follow the templates.
 - Use a neutral example host in the README `ssh-keyscan` step.
 - Renovate takes its common rules from the shared preset `github>grigoriev/renovate-config`, which also turns on OSV vulnerability alerts.
 
