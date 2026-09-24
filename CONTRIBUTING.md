@@ -12,6 +12,17 @@ cp .env.example .env   # fill in dummy values
 docker compose config -q
 ```
 
+Then run the smoke test. It starts the stack with dummy config and checks it:
+
+```sh
+tests/smoke.sh
+```
+
+## Tests
+
+New behavior comes with a test. Extend `tests/smoke.sh` when a change adds a
+route, a service or a proxy rule. A bug fix adds a check that fails without it.
+
 ## Commit messages
 
 This project follows [Conventional Commits](https://www.conventionalcommits.org/):
@@ -28,6 +39,6 @@ subject under 50 characters. Types: `feat`, `fix`, `docs`, `style`, `refactor`,
 
 ## Before opening a pull request
 
-- Validate the compose file and make sure CI is green.
+- Validate the compose file, run `tests/smoke.sh`, and make sure CI is green.
 - Sign your commits. The `main` branch accepts verified signatures only.
 - Pull requests are merged with squash merge.
