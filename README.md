@@ -1,7 +1,9 @@
 # sb-stack
 
-![CI](https://github.com/grigoriev/sb-stack/actions/workflows/ci.yml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/grigoriev/sb-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/grigoriev/sb-stack/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/grigoriev/sb-stack/badge)](https://scorecard.dev/viewer/?uri=github.com/grigoriev/sb-stack)
+[![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](docker-compose.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Docker Compose deployment for the seedbox to Plex stack:
 
@@ -85,3 +87,27 @@ first start needs `--build`.
 - The `sb-ctrl` and `sb-ctrl-ui` images are published to
   `ghcr.io/grigoriev/*` only when a GitHub Release is created in those repos.
   Cut a release there before the first deploy.
+
+## Verify the images
+
+The `sb-ctrl` and `sb-ctrl-ui` images carry a signed build provenance and an
+SPDX SBOM attestation from their next release on. Check one before a deploy:
+
+```sh
+gh attestation verify oci://ghcr.io/grigoriev/sb-ctrl:<tag> --owner grigoriev
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Disclaimer
+
+This software is provided "as is", without warranty of any kind, as the LICENSE states. Use
+it at your own risk. Sergey Grigoriev is not liable for damage from its use, as far as the law
+allows. It is published free of charge, outside of any commercial offering, with no
+obligation to support it. Security reports are welcome, see [SECURITY.md](SECURITY.md).
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.

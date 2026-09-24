@@ -1,0 +1,3 @@
+# DS-0002: the caddy image runs as root, like the caddy base image. Caddy
+# binds port 443 and writes its certificates to the caddy_data volume.
+DS-0002

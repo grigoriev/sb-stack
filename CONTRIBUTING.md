@@ -29,3 +29,5 @@ subject under 50 characters. Types: `feat`, `fix`, `docs`, `style`, `refactor`,
 ## Before opening a pull request
 
 - Validate the compose file and make sure CI is green.
+- Sign your commits. The `main` branch accepts verified signatures only.
+- Pull requests are merged with squash merge.
