@@ -22,6 +22,7 @@ This repository has no releases. `main` is the deployed state.
 ### Changed
 
 - Use a neutral example host in the README `ssh-keyscan` step.
+- Renovate takes its common rules from the shared preset `github>grigoriev/renovate-config`, which also turns on OSV vulnerability alerts.
 
 ### Fixed
 
