@@ -14,6 +14,7 @@ This repository has no releases. `main` is the deployed state.
 - Limit the token permissions of the workflows.
 - Stop persisting the checkout credentials.
 - Let Renovate pin GitHub Actions by commit digest.
+- `sb-ctrl` no longer receives `.env`. Only caddy needs `IONOS_API_KEY`.
 
 ### Added
 
@@ -31,4 +32,5 @@ This repository has no releases. `main` is the deployed state.
 
 ### Fixed
 
+- README setup: the UI signs in with the `[auth]` user and needs no API settings.
 - Run CI once per commit on a Renovate branch: drop `renovate/**` from the push trigger.
