@@ -2,7 +2,7 @@ services:
   # REST API + transfer agent. Reached only through the caddy proxy.
   # Image published to GHCR by the sb-ctrl repo on each release.
   sb-ctrl:
-    image: ghcr.io/grigoriev/sb-ctrl:0.8.1
+    image: ghcr.io/grigoriev/sb-ctrl:0.8.2
     restart: unless-stopped
     # No env_file: sb-ctrl reads its settings from config.toml, and .env holds
     # the IONOS_API_KEY that only caddy needs.
