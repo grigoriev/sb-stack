@@ -67,7 +67,8 @@ Flag these in a pull request:
   purpose (`pinDigests: false` in `renovate.json`). Do not flag those
 - A new published port, or a service reachable outside the `internal` network except `caddy`
 - A mount that turns read-only into read-write, or a new host mount
-- A change to `env_file`. `sb-ctrl` and `caddy` both read all of `.env`, so a new variable reaches both
+- A change to `env_file`. Only `caddy` reads `.env`. Giving it to `sb-ctrl` would expose
+  `IONOS_API_KEY` to a service that does not need it
 - A routing change in the `Caddyfile` without a matching check in `tests/smoke.sh`
 - An edit to `tests/docker-compose.smoke.yml` that could apply to a deployment
 - A new `.trivyignore` entry without a reason comment

@@ -4,7 +4,8 @@ services:
   sb-ctrl:
     image: ghcr.io/grigoriev/sb-ctrl:0.8.1
     restart: unless-stopped
-    env_file: .env
+    # No env_file: sb-ctrl reads its settings from config.toml, and .env holds
+    # the IONOS_API_KEY that only caddy needs.
     volumes:
       - ./config/config.toml:/config/config.toml:ro
       - ./secrets/ssh:/root/.ssh:ro
