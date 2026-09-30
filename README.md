@@ -46,6 +46,8 @@ browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
 
    - `[api] host = "0.0.0.0"` so the container is reachable.
    - `staging_root` and the `[roots]` paths under `/data` (the `MEDIA_ROOT` mount).
+   - An `[auth]` section for the browser login. `sb-ctrl hash-password` prints its values,
+     see the sb-ctrl [README](https://github.com/grigoriev/sb-ctrl#rest-api).
 
    Then `chmod 600 config/config.toml`.
 
@@ -63,8 +65,8 @@ browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
    docker compose up -d --build
    ```
 
-6. Open `https://<DOMAIN>/`. In the UI settings set the API URL to `/api` and
-   paste the bearer token from `config.toml`.
+6. Open `https://<DOMAIN>/` and sign in with the user from `[auth]`. The UI finds the
+   API at `/api` by default.
 
 ## Updating
 

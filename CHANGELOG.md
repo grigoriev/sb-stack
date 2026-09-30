@@ -32,4 +32,5 @@ This repository has no releases. `main` is the deployed state.
 
 ### Fixed
 
+- README setup: the UI signs in with the `[auth]` user and needs no API settings.
 - Run CI once per commit on a Renovate branch: drop `renovate/**` from the push trigger.

@@ -3,7 +3,7 @@
 }
 
 # One host serves the UI at the root and the API under /api. Same origin, so
-# the browser makes no cross-origin calls: set the UI "API URL" to /api.
+# the browser makes no cross-origin calls. The UI finds the API at /api by default.
 {$DOMAIN} {
 	tls {
 		dns ionos {env.IONOS_API_KEY}
