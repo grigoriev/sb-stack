@@ -19,7 +19,7 @@ services:
   # Static single-page UI. Image published to GHCR by the sb-ctrl-ui repo on each release.
   # It holds no web server: it copies the app to the ui volume and exits. Caddy serves it.
   sb-ctrl-ui:
-    image: ghcr.io/grigoriev/sb-ctrl-ui:0.7.0
+    image: ghcr.io/grigoriev/sb-ctrl-ui:0.8.0
     restart: "no"
     volumes:
       - ui:/out
