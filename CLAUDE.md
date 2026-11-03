@@ -13,9 +13,10 @@ A change must never alter what the host runs without intent. Treat every edit to
 
 ## Tech Stack
 
-- **Docker Compose** with three services on one `internal` network:
+- **Docker Compose** with three services. `sb-ctrl` and `caddy` share one `internal` network:
   - `sb-ctrl`: REST API and transfer agent, image `ghcr.io/grigoriev/sb-ctrl:<version>`
-  - `sb-ctrl-ui`: static UI, image `ghcr.io/grigoriev/sb-ctrl-ui:<version>`
+  - `sb-ctrl-ui`: static UI, image `ghcr.io/grigoriev/sb-ctrl-ui:<version>`. It copies the files
+    to the `ui` volume and exits, without a network
   - `caddy`: TLS and reverse proxy, built locally with the IONOS DNS plugin
 - **TLS**: Let's Encrypt over DNS-01. The host is VPN-only, so HTTP-01 fails
 - **Tests**: `tests/smoke.sh`, bash and curl, needs Compose 2.24 or later
@@ -38,7 +39,7 @@ docker compose up -d
 ## Architecture
 
 - `docker-compose.yml`: the three services, their mounts and ports
-- `Caddyfile`: `{$DOMAIN}` serves the UI at `/` and proxies `/api/*` to `sb-ctrl:8765`
+- `Caddyfile`: `{$DOMAIN}` serves the `ui` volume at `/` and proxies `/api/*` to `sb-ctrl:8765`
 - `caddy/Dockerfile`: `xcaddy build --with github.com/caddy-dns/ionos`
 - `.env.example`: `DOMAIN`, `ACME_EMAIL`, `IONOS_API_KEY`, `MEDIA_ROOT`
 - `config/config.toml`, `secrets/ssh/`: host-only, git-ignored, mounted read-only into `sb-ctrl`

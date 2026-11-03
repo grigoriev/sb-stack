@@ -9,7 +9,8 @@
 Docker Compose deployment for the seedbox to Plex stack:
 
 - **sb-ctrl** ([repo](https://github.com/grigoriev/sb-ctrl)) - REST API and transfer agent.
-- **sb-ctrl-ui** ([repo](https://github.com/grigoriev/sb-ctrl-ui)) - static single-page UI.
+- **sb-ctrl-ui** ([repo](https://github.com/grigoriev/sb-ctrl-ui)) - static single-page UI. It
+  copies its files to the `ui` volume and exits.
 - **caddy** - TLS termination and reverse proxy, built with the IONOS DNS plugin.
 
 One host serves the UI at the root and the API under `/api`. Same origin, so the
@@ -17,7 +18,7 @@ browser makes no cross-origin calls.
 
 ```
 browser ── https ──> caddy ─┬─ /api/* ─> sb-ctrl:8765
-                            └─ /*      ─> sb-ctrl-ui:80
+                            └─ /*      ─> ui volume, filled by sb-ctrl-ui
 ```
 
 ## Prerequisites
@@ -79,6 +80,9 @@ docker compose pull
 docker compose up -d
 ```
 
+`sb-ctrl-ui` runs once on each `up` and then shows as exited. Caddy starts after it
+copied the files. A new UI version replaces the files in the `ui` volume.
+
 The `caddy` service builds locally (it bundles the IONOS DNS plugin), so the
 first start needs `--build`.
 
@@ -114,7 +118,8 @@ It needs Docker with Compose 2.24 or later, and curl. The script does this:
 1. Writes a throwaway `.env` and `config.toml` to a temp dir. No seedbox and no real secrets.
 2. Builds caddy and starts the stack as project `sb-stack-smoke`, on `https://localhost:8443`.
 3. Replaces the IONOS DNS-01 block of the Caddyfile with Caddy's internal CA. No ACME.
-4. Checks the UI index page, `/api/health`, and that `/api` rejects a missing or wrong token.
+4. Checks the UI index page, its assets, the fallback to `index.html`, `/api/health`, and that
+   `/api` rejects a missing or wrong token.
 5. Validates the deployed Caddyfile, unchanged, with the built caddy image.
 6. Removes the containers and volumes, and prints the logs on failure.
 
