@@ -16,12 +16,14 @@ services:
       - /etc/group:/etc/group:ro
     networks: [internal]
 
-  # Static single-page UI. Reached only through the caddy proxy.
-  # Image published to GHCR by the sb-ctrl-ui repo on each release.
+  # Static single-page UI. Image published to GHCR by the sb-ctrl-ui repo on each release.
+  # It holds no web server: it copies the app to the ui volume and exits. Caddy serves it.
   sb-ctrl-ui:
-    image: ghcr.io/grigoriev/sb-ctrl-ui:0.6.2
-    restart: unless-stopped
-    networks: [internal]
+    image: ghcr.io/grigoriev/sb-ctrl-ui:0.7.0
+    restart: "no"
+    volumes:
+      - ui:/out
+    network_mode: none
 
   # TLS termination + reverse proxy. Custom build adds the IONOS DNS plugin
   # so certificates issue over DNS-01 (the host is VPN-only, HTTP-01 fails).
@@ -37,8 +39,14 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      - ui:/srv/ui:ro
     networks: [internal]
-    depends_on: [sb-ctrl, sb-ctrl-ui]
+    depends_on:
+      sb-ctrl:
+        condition: service_started
+      # Serve the ui volume only after the UI image filled it.
+      sb-ctrl-ui:
+        condition: service_completed_successfully
 
 networks:
   internal:
@@ -46,3 +54,5 @@ networks:
 volumes:
   caddy_data:
   caddy_config:
+  # The static UI. sb-ctrl-ui writes it, caddy reads it.
+  ui:

@@ -24,6 +24,10 @@ This repository has no releases. `main` is the deployed state.
 
 ### Changed
 
+- Update sb-ctrl-ui to 0.7.0. Its image holds no web server any more. It copies the
+  app to the new `ui` volume and exits. Caddy serves the volume, with a fallback to
+  `index.html`, and starts only after the copy succeeded.
+- The smoke test also checks the UI assets and the fallback to `index.html`.
 - Align the repository with the shared baseline: the `lint` job runs ShellCheck on
   `tests/smoke.sh`, a new push to a pull request cancels its older CI run, every job has
   a time limit, and SECURITY.md, CONTRIBUTING.md and .editorconfig follow the templates.

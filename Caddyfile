@@ -13,7 +13,11 @@
 		reverse_proxy sb-ctrl:8765
 	}
 
+	# The UI files from the ui volume. Client routes fall back to index.html.
 	handle {
-		reverse_proxy sb-ctrl-ui:80
+		root * /srv/ui
+		encode gzip
+		try_files {path} /index.html
+		file_server
 	}
 }
