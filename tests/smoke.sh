@@ -145,7 +145,7 @@ check "UI falls back to the index page for a client route" /some/route 200 '<tit
 # Every asset the index page names must come from the ui volume. A missing one
 # gets index.html with 200 through the fallback, so reject an HTML answer too.
 out="$(get /)" || fail "cannot read the index page"
-assets="$(printf '%s' "${out%$'\n'*}" | grep -o '/assets/[^"]*' | sort -u)"
+assets="$(printf '%s' "${out%$'\n'*}" | { grep -o '/assets/[^"]*' || true; } | sort -u)"
 [ -n "$assets" ] || fail "the index page names no assets"
 for asset in $assets; do
   out="$(get "$asset" -o /dev/null -w '\n%{http_code} %{content_type}')" \

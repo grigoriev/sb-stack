@@ -13,7 +13,7 @@ A change must never alter what the host runs without intent. Treat every edit to
 
 ## Tech Stack
 
-- **Docker Compose** with three services on one `internal` network:
+- **Docker Compose** with three services. `sb-ctrl` and `caddy` share one `internal` network:
   - `sb-ctrl`: REST API and transfer agent, image `ghcr.io/grigoriev/sb-ctrl:<version>`
   - `sb-ctrl-ui`: static UI, image `ghcr.io/grigoriev/sb-ctrl-ui:<version>`. It copies the files
     to the `ui` volume and exits, without a network
