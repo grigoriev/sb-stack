@@ -142,15 +142,22 @@ check "UI serves the index page" / 200 '<title>sb-ctrl</title>'
 check "UI serves config.js with the /api base" /config.js 200 'window.SB_API_BASE="/api"'
 check "UI falls back to the index page for a client route" /some/route 200 '<title>sb-ctrl</title>'
 
-# Every asset the index page names must come from the ui volume.
+# Every asset the index page names must come from the ui volume. A missing one
+# gets index.html with 200 through the fallback, so reject an HTML answer too.
 out="$(get /)" || fail "cannot read the index page"
 assets="$(printf '%s' "${out%$'\n'*}" | grep -o '/assets/[^"]*' | sort -u)"
 [ -n "$assets" ] || fail "the index page names no assets"
 for asset in $assets; do
-  code="$(get "$asset" -o /dev/null)" || fail "request for $asset failed"
-  [ "${code##*$'\n'}" = 200 ] || fail "asset $asset: HTTP ${code##*$'\n'}"
+  out="$(get "$asset" -o /dev/null -w '\n%{http_code} %{content_type}')" \
+    || fail "request for $asset failed"
+  read -r code type <<<"${out##*$'\n'}"
+  [ "$code" = 200 ] || fail "asset $asset: HTTP $code"
+  case "$type" in
+    text/html*) fail "asset $asset: the fallback served the index page" ;;
+  esac
 done
 pass "UI serves the assets the index page names"
+
 check "API health answers ok" /api/health 200 '"ok":true'
 check "API reports login required" /api/me 200 '"login_required":true'
 check "API rejects a request without a token" /api/config 401 'unauthorized'
