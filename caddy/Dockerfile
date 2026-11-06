@@ -1,5 +1,5 @@
 # Caddy with the IONOS DNS provider for DNS-01 ACME challenges.
-FROM caddy:2-builder@sha256:ccd8bdb5d7b25c78962bac46b7daaabfb0a354d0decf7d752e1b69caf46d9b85 AS builder
+FROM caddy:2-builder@sha256:3db11aead97f1fdff9c563d0dd8e7fba2e4c7031bef40f3e44fd1982f3e8366b AS builder
 RUN xcaddy build --with github.com/caddy-dns/ionos
 
 FROM caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
